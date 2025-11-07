@@ -80,18 +80,48 @@ const Checkout = mongoose.models.Checkout || mongoose.model('Checkout', checkout
 let inMemoryCart = [];
 let inMemoryProducts = [];
 
-// Initialize mock products
+// Helper function to convert filename to product name
+const formatProductName = (filename) => {
+  // Remove file extension
+  let name = filename.replace(/\.(jpeg|jpg|png|gif)$/i, '');
+  // Replace underscores and hyphens with spaces
+  name = name.replace(/[_-]/g, ' ');
+  // Capitalize first letter of each word
+  name = name.split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+  return name;
+};
+
+// Initialize mock products from public folder images
 const initializeProducts = async () => {
-  const mockProducts = [
-    { id: 1, name: 'Wireless Headphones', price: 79.99, description: 'Premium noise-cancelling headphones', image: '/bag.jpeg' },
-    { id: 2, name: 'Smart Watch', price: 249.99, description: 'Fitness tracking smartwatch', image: '/dragin_bracelet.jpg' },
-    { id: 3, name: 'Laptop Stand', price: 39.99, description: 'Ergonomic aluminum laptop stand', image: '/jacket.png' },
-    { id: 4, name: 'Mechanical Keyboard', price: 129.99, description: 'RGB mechanical gaming keyboard', image: '/micropave.jpg' },
-    { id: 5, name: 'USB-C Hub', price: 49.99, description: 'Multi-port USB-C adapter', image: '/rose_gold_earrings.jpeg' },
-    { id: 6, name: 'Wireless Mouse', price: 29.99, description: 'Ergonomic wireless mouse', image: '/solitare_ring.jpeg' },
-    { id: 7, name: 'Monitor Stand', price: 59.99, description: 'Dual monitor stand with cable management', image: '/sweater.png' },
-    { id: 8, name: 'Webcam HD', price: 89.99, description: '1080p HD webcam with microphone', image: '/tshirt.jpeg' }
+  // List of image files in the public folder
+  const imageFiles = [
+    'bag.jpeg',
+    'dragon_bracelet.jpg',
+    'jacket.png',
+    'micropave.jpg',
+    'rose_gold_earrings.jpeg',
+    'solitare_ring.jpeg',
+    'sweater.png',
+    'tshirt.jpeg'
   ];
+
+  // Generate products from image files
+  const mockProducts = imageFiles.map((imageFile, index) => {
+    const productName = formatProductName(imageFile);
+    // Generate prices based on index (deterministic pricing)
+    const basePrice = 29.99;
+    const price = basePrice + (index * 20);
+    
+    return {
+      id: index + 1,
+      name: productName,
+      price: parseFloat(price.toFixed(2)),
+      description: `Premium ${productName.toLowerCase()}`,
+      image: `/${imageFile}`
+    };
+  });
 
   try {
     if (isMongoConnected) {

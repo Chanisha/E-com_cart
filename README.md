@@ -279,28 +279,28 @@ REACT_APP_API_URL=http://your-backend-url/api
 
 ### Products Page
 
-![Products Page](./screenshots/homepage.png)
+![Products Page](./screenshots/products-page.png)
 
 - Responsive grid layout with product cards
 - Hover effects and smooth transitions
 
 ### Shopping Cart
 
-![Shopping Cart](./screenshots/addtocart.png)
+![Shopping Cart](./screenshots/shopping-cart.png)
 
 - Clean cart interface with quantity controls
 - Real-time total calculation
 
 ### Checkout Form
 
-![Checkout Form](./screenshots/checkout.png)
+![Checkout Form](./screenshots/checkout-form.png)
 
 - Two-column layout with order summary
 - Form validation
 
 ### Receipt Modal
 
-![Receipt Modal](./screenshots/purchasedone.png)
+![Receipt Modal](./screenshots/receipt-modal.png)
 
 - Animated success confirmation
 - Detailed order information
